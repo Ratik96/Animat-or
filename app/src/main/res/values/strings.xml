@@ -5,4 +5,39 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Quotes string provided by Treehouse -->
+
+    <string-array name="quotes">
+        <item>
+            A material metaphor is the unifying theory of a rationalized space and a system of motion.
+        </item>
+        <item>
+            Motion in the world of material design is not only beautiful, it builds meaning about the spatial relationships, functionality, and intention of the system.
+        </item>
+        <item>
+            All elements work together to construct a seamless experience and a beautiful, functional app.
+        </item>
+        <item>
+            Color is inspired by bold color statements juxtaposed with muted environments, taking cues from contemporary architecture, road signs, pavement marking tape, and sports courts.
+        </item>
+        <item>
+            Structural and visual consistency creates an environment for the user that is recognizable across products.
+        </item>
+        <item>
+            Consider again what material design is: a design based on the qualities of paper.
+        </item>
+        <item>
+            A product is accessible when all people—regardless of ability—can navigate it, understand it, and use it to achieve their goals.
+        </item>
+        <item>
+            Surfaces and edges of the material provide visual cues that are grounded in reality.
+        </item>
+        <item>
+            An emphasis on user actions makes core functionality immediately apparent and provides waypoints for the user.
+        </item>
+        <item>
+            Motion is meaningful and appropriate, serving to focus attention and maintain continuity. Feedback is subtle yet clear. Transitions are efficient yet coherent.
+        </item>
+    </string-array>
+
 </resources>
