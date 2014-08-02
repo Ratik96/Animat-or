@@ -37,12 +37,4 @@
             Motion is meaningful and appropriate, serving to focus attention and maintain continuity. Feedback is subtle yet clear. Transitions are efficient yet coherent.
         </item>
     </string-array>
-
-    <string-array name="colors">
-        <item>#6c8c9b</item>
-        <item>#c32a29</item>
-        <item>#4dab4f</item>
-        <item>#4d65ab</item>
-    </string-array>
-
 </resources>

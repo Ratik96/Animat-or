@@ -1,11 +1,12 @@
 package com.ratik.animationsdemo;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -13,6 +14,8 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends Activity {
 
@@ -26,7 +29,6 @@ public class MainActivity extends Activity {
     private String[] quotes;
 
     protected TextView mQuotesTextView;
-    protected Button mNextButton;
     protected RelativeLayout mMainLayout;
 
     @Override
@@ -35,32 +37,31 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         init();
+    }
 
-        mNextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mQuotesTextView.setAlpha(0f);
-
-                mQuotesTextView.setText(quotes[getRandomIndex(quotes)]);
-                startRandomAnimation(R.id.quotesTextView);
-                setRandomBackgroundColor(mMainLayout);
-                // setRandomFont();
-            }
-        });
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startImmersiveMode();
     }
 
     private void init() {
         mQuotesTextView = (TextView) findViewById(R.id.quotesTextView);
-        mNextButton = (Button) findViewById(R.id.nextButton);
         mMainLayout = (RelativeLayout) findViewById(R.id.main);
         quotes = getResources().getStringArray(R.array.quotes);
 
-        mQuotesTextView.setText(quotes[getRandomIndex(quotes)]);
-        YoYo.with(Techniques.RotateIn).playOn(findViewById(R.id.quotesTextView));
-
         setRandomBackgroundColor(mMainLayout);
-        // setRandomFont();
+        mQuotesTextView.setText(quotes[0]);
+
+        new Timer().scheduleAtFixedRate(new InfinteLoopTask(), 3 * 1000, 3 * 1000);
+    }
+
+    @TargetApi(19)
+    public void startImmersiveMode() {
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_IMMERSIVE);
     }
 
     private int getRandomIndex(String[] array) {
@@ -70,67 +71,74 @@ public class MainActivity extends Activity {
 
     private void startRandomAnimation(int id) {
         Random random = new Random();
-        int randomNumber = random.nextInt(ANIMATION_COUNT) + 1;
+        int randomNumber = random.nextInt(ANIMATION_COUNT);
         int viewId = id;
         switch (randomNumber) {
-            case 1:
+            case 0:
                 YoYo.with(Techniques.RubberBand).playOn(findViewById(id));
                 break;
-            case 2:
+            case 1:
                 YoYo.with(Techniques.Wobble).playOn(findViewById(id));
                 break;
-            case 3:
+            case 2:
                 YoYo.with(Techniques.Tada).playOn(findViewById(id));
                 break;
-            case 4:
+            case 3:
                 YoYo.with(Techniques.Wave).playOn(findViewById(id));
                 break;
-            case 5:
+            case 4:
                 YoYo.with(Techniques.BounceIn).playOn(findViewById(id));
                 break;
-            case 6:
+            case 5:
                 YoYo.with(Techniques.SlideInLeft).playOn(findViewById(id));
                 break;
-            case 7:
+            case 6:
                 YoYo.with(Techniques.SlideInRight).playOn(findViewById(id));
                 break;
-            case 8:
+            case 7:
                 YoYo.with(Techniques.SlideInUp).playOn(findViewById(id));
                 break;
-            case 9:
+            case 8:
                 YoYo.with(Techniques.Shake).playOn(findViewById(id));
                 break;
-            case 10:
+            case 9:
                 YoYo.with(Techniques.RollIn).playOn(findViewById(id));
                 break;
         }
     }
 
     private void setRandomBackgroundColor(View v) {
-        // TODO: avoid getting colors from resources
-        String[] colors = getResources().getStringArray(R.array.colors);
+        String[] colors = { "#6c8c9b", "#c32a29", "#4dab4f", "#4d65ab" };
         v.setBackgroundColor(Color.parseColor(colors[getRandomIndex(colors)]));
         v.startAnimation(new AlphaAnimation(0, 1));
     }
 
-//    private void setRandomFont() {
-//        String fonts[] = {"action_comics.ttf", "arista.ttf", "badabb.ttf", "obelix.ttf", "shabby.ttf"};
-//        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/" + fonts[getRandomIndex(fonts)]);
-//
-//        String quoteText = mQuotesTextView.getText().toString();
-//        String[] quote = quoteText.split(" ");
-//        for (String q : quote) {
-//            if (q.length() > 6) {
-//                // Set custom font
-//                TextView styledTextView = new TextView(this);
-//                styledTextView.setText(q);
-//                styledTextView.setTextSize(40);
-//                styledTextView.setGravity(Gravity.CENTER);
-//                styledTextView.setTextColor(Color.parseColor("#ffffff"));
-//                styledTextView.setTypeface(tf);
-//                mMainLayout.addView(styledTextView);
-//                break;
-//            }
-//        }
-//    }
+    private class InfinteLoopTask extends TimerTask {
+        private final String TAG = InfinteLoopTask.class.getSimpleName();
+
+        private final int NO_OF_QUOTES = quotes.length;
+        int counter = 0;
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                mQuotesTextView.setAlpha(0f);
+                mQuotesTextView.setText(quotes[counter - 1]);
+                startRandomAnimation(R.id.quotesTextView);
+                setRandomBackgroundColor(mMainLayout);
+            }
+        };
+
+        @Override
+        public void run() {
+            if (counter < NO_OF_QUOTES) {
+                counter++;
+                Log.d(TAG, "" + counter);
+                MainActivity.this.runOnUiThread(runnable);
+            }
+            else {
+                counter = 0;
+            }
+        }
+    }
 }
