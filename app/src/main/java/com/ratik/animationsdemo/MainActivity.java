@@ -4,7 +4,6 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.RelativeLayout;
@@ -51,9 +50,8 @@ public class MainActivity extends Activity {
         quotes = getResources().getStringArray(R.array.quotes);
 
         setRandomBackgroundColor(mMainLayout);
-        mQuotesTextView.setText(quotes[0]);
 
-        new Timer().scheduleAtFixedRate(new InfinteLoopTask(), 3 * 1000, 3 * 1000);
+        new Timer().scheduleAtFixedRate(new InfinteLoopTask(), 500, 3 * 1000);
     }
 
     @TargetApi(19)
@@ -133,7 +131,6 @@ public class MainActivity extends Activity {
         public void run() {
             if (counter < NO_OF_QUOTES) {
                 counter++;
-                Log.d(TAG, "" + counter);
                 MainActivity.this.runOnUiThread(runnable);
             }
             else {

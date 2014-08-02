@@ -4,8 +4,8 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Material.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="android:colorPrimary">#ccc</item>
-        <item name="android:colorPrimaryDark">#000</item>
+        <item name="android:colorPrimary">#b7c6e6</item>
+        <item name="android:colorPrimaryDark">#8fa2ca</item>
     </style>
 
 </resources>
