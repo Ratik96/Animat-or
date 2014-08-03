@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ratik.animationsdemo" >
 
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -16,6 +18,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.ratik.animationsdemo.SettingsActivity"
+            android:label="Settings"
+            android:theme="@style/SettingsTheme">
+        </activity>
+        <service
+            android:name=".service.DaydreamService"
+            android:exported="true"
+            android:label="Material Quotes">
+            <intent-filter>
+                <action android:name="android.service.dreams.DreamService" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
