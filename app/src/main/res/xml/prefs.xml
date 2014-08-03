@@ -2,17 +2,20 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <EditTextPreference
-        android:key="timer_period"
-        android:title="Timer period"
-        android:summary="Time period for quote change: 2"
-        android:defaultValue="2" />
+    <PreferenceCategory
+        android:title="App Controls"
+        android:key="app_controls" >
+        <CheckBoxPreference
+            android:key="immersive"
+            android:title="Immersive Mode"
+            android:summary="Use this to turn toggle Immersive mode"
+            android:defaultValue="false" />
 
-    <CheckBoxPreference
-        android:key="immersive"
-        android:title="Immersive Mode"
-        android:summary="Use this to turn Immersive mode ON"
-        android:defaultValue="false" />
-
+        <EditTextPreference
+            android:key="timer_period"
+            android:title="Timer period"
+            android:summary="Time period for quote change: 2"
+            android:defaultValue="2" />
+    </PreferenceCategory>
 
 </PreferenceScreen>

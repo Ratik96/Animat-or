@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -31,6 +32,8 @@ public class MainActivity extends Activity {
 
     private Timer mTimer;
 
+    private boolean isButtonVisible;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +55,16 @@ public class MainActivity extends Activity {
                 }
             });
         }
+
+        mMainLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!isButtonVisible) {
+                    YoYo.with(Techniques.SlideInRight).duration(500).playOn(findViewById(R.id.settingsButton));
+                    isButtonVisible = true;
+                }
+            }
+        });
     }
 
     @Override
@@ -67,6 +80,16 @@ public class MainActivity extends Activity {
 
         mTimer = new Timer();
         mTimer.scheduleAtFixedRate(new InfinteLoopTask(), 500, timerDelay * 1000);
+
+        // Dismiss Settings Button after 5 seconds
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                YoYo.with(Techniques.SlideOutRight).playOn(findViewById(R.id.settingsButton));
+                isButtonVisible = false;
+            }
+        }, 5 * 1000);
     }
 
     @Override
