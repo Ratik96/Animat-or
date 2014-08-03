@@ -2,6 +2,7 @@ package com.ratik.animationsdemo;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -10,6 +11,7 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 
 public class SettingsActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener {
 
@@ -51,7 +53,18 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
     public boolean onPreferenceChange(Preference preference, Object value) {
         String stringValue = value.toString();
         if (preference instanceof EditTextPreference) {
-            preference.setSummary("Time period for quote change: " + stringValue);
+            if (Integer.parseInt(stringValue) < 3) {
+                Toast.makeText(this, "Please use a value greater than 3 seconds", Toast.LENGTH_LONG).show();
+                // Override's user entered value
+                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("timer_period", "3");
+                editor.commit();
+                preference.setSummary("Time period for quote change: 3");
+            }
+            else {
+                preference.setSummary("Time period for quote change: " + stringValue);
+            }
         }
         return true;
     }

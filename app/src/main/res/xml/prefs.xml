@@ -15,7 +15,7 @@
             android:key="timer_period"
             android:title="Timer period"
             android:summary="Time period for quote change: 2"
-            android:defaultValue="2" />
+            android:defaultValue="3" />
     </PreferenceCategory>
 
 </PreferenceScreen>

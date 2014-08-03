@@ -15,15 +15,12 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"/>
 
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/quotesTextView"
-        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        android:textColor="#E6FFFFFF"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"/>
+        android:layout_marginLeft="22dp"/>
 </RelativeLayout>
